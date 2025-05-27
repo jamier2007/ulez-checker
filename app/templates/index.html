@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emission Zone Compliance Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Emission Zone Compliance Checker</h1>
+            <p class="subtitle">Check if your vehicle meets emission zone standards</p>
+        </header>
+        
+        <main>
+            <div class="search-card">
+                <h2>Enter Vehicle Registration</h2>
+                <p>Find out if your vehicle is compliant with emission zone regulations</p>
+                
+                <form id="check-form" action="javascript:void(0);">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="registration" 
+                            name="registration" 
+                            placeholder="e.g., AB12CDE" 
+                            required 
+                            autocomplete="off"
+                            maxlength="8">
+                        <button type="submit" id="submit-btn">Check Now</button>
+                    </div>
+                    <div class="error-message" id="error-message"></div>
+                </form>
+                
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Checking registration...</p>
+                </div>
+                
+                <div class="result-container" id="result-container">
+                    <!-- Results will be displayed here via JavaScript -->
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>About Emission Zone Compliance</h3>
+                <p>Emission zones are areas where vehicles must meet certain emission standards to enter without paying a daily charge. These zones help reduce air pollution in urban areas.</p>
+                
+                <h3>What We Check</h3>
+                <ul>
+                    <li>Vehicle make and model</li>
+                    <li>Year of registration</li>
+                    <li>Engine emission category</li>
+                    <li>CO2 emissions rating</li>
+                    <li>Compliance status</li>
+                    <li>Applicable charges (if any)</li>
+                </ul>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 Emission Zone Compliance Checker. All rights reserved.</p>
+            <p class="disclaimer">This service is for informational purposes only. Always verify compliance with official sources.</p>
+        </footer>
+    </div>
+    
+    <script src="{{ url_for('static', path='/script.js') }}"></script>
+</body>
+</html>

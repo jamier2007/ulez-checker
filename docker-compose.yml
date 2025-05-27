@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  ulez-checker:
+    image: ulez-checker:v4-port5005
+    ports:
+      - "5005:5005"
+    environment:
+      - PORT=5005
+      - PYTHONPATH=/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5005/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ulez-checker.rule=Host(`localhost`)"
+      - "traefik.http.services.ulez-checker.loadbalancer.server.port=5005"

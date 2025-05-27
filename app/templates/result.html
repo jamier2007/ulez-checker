@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emission Zone Compliance Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Emission Zone Compliance Checker</h1>
+            <p class="subtitle">Check if your vehicle meets emission zone standards</p>
+        </header>
+        
+        <main>
+            <div class="result-card">
+                <div class="back-link">
+                    <a href="/">&larr; Check another vehicle</a>
+                </div>
+                
+                {% if error %}
+                    <div class="error-panel">
+                        <h2>Error</h2>
+                        <p>{{ error }}</p>
+                        <p class="registration-display">Registration: {{ registration }}</p>
+                    </div>
+                {% else %}
+                    <div class="result-header {% if result.compliant %}compliant{% else %}non-compliant{% endif %}">
+                        <h2>{{ result.message }}</h2>
+                        <p class="registration-display">Registration: {{ result.registration }}</p>
+                    </div>
+                    
+                    <div class="vehicle-details">
+                        <h3>Vehicle Details</h3>
+                        <div class="detail-grid">
+                            {% if result.make_model %}
+                            <div class="detail-item">
+                                <span class="detail-label">Make and Model:</span>
+                                <span class="detail-value">{{ result.make_model }}</span>
+                            </div>
+                            {% endif %}
+                            
+                            {% if result.year %}
+                            <div class="detail-item">
+                                <span class="detail-label">Year of Registration:</span>
+                                <span class="detail-value">{{ result.year }}</span>
+                            </div>
+                            {% endif %}
+                            
+                            {% if result.engine_category %}
+                            <div class="detail-item">
+                                <span class="detail-label">Engine Category:</span>
+                                <span class="detail-value">{{ result.engine_category }}</span>
+                            </div>
+                            {% endif %}
+                            
+                            {% if result.co2_emissions %}
+                            <div class="detail-item">
+                                <span class="detail-label">CO2 Emissions:</span>
+                                <span class="detail-value">{{ result.co2_emissions }}</span>
+                            </div>
+                            {% endif %}
+                            
+                            {% if not result.compliant and result.charge %}
+                            <div class="detail-item charge">
+                                <span class="detail-label">Daily Charge:</span>
+                                <span class="detail-value">£{{ result.charge }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="compliance-summary">
+                        {% if result.compliant %}
+                            <p class="compliant-message">This vehicle meets the emission zone standards and no charge applies.</p>
+                        {% else %}
+                            <p class="non-compliant-message">This vehicle does not meet the emission zone standards. A daily charge of £{{ result.charge }} applies when driving in the zone.</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="info-section">
+                <h3>About Emission Zone Compliance</h3>
+                <p>Emission zones are areas where vehicles must meet certain emission standards to enter without paying a daily charge. These zones help reduce air pollution in urban areas.</p>
+                
+                <h3>What This Means</h3>
+                <p>If your vehicle is non-compliant, you'll need to pay a daily charge to drive within the emission zone. Consider alternatives such as public transport, walking, cycling, or upgrading to a compliant vehicle.</p>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 Emission Zone Compliance Checker. All rights reserved.</p>
+            <p class="disclaimer">This service is for informational purposes only. Always verify compliance with official sources.</p>
+        </footer>
+    </div>
+</body>
+</html>
