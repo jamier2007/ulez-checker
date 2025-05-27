@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   ulez-checker:
+    build: .
     image: ulez-checker:v4-port5005
     ports:
       - "5005:5005"
